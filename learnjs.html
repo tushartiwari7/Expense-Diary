@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>learning JS</title>
+	<link 
+		rel="stylesheet" 
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" 
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" 
+		crossorigin="anonymous"
+	>
+	<style type="text/css">
+		body {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+		
+
+		.navbar {
+			width: 100vw;
+		}
+		.h5 {
+			display: flex;
+			flex-direction: row;
+		}
+	</style>
+	<script
+			defer
+			src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+			integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
+			crossorigin="anonymous"
+		>
+	</script>
+</head>
+<body>
+
+
+	<div class="container-fluid bg-light p-0" style="min-height: 100vh">
+		<nav class="navbar navbar-dark bg-dark navbar-expand{-lg|-xl}">
+	 		<span class="navbar-brand mb-0 h1 text-white">Expense Diary</span>
+	 		<form class="form-inline">
+				<div class="navbar-text mb-0 h5 text-white">Total Bill: &nbsp; <span id="output">NULL</span> </div>
+			</form>
+		</nav>
+		<div class="container">
+			<form class="jumbotron mt-4 pt-4 mx-auto" style="text-align: center;" name="expenseInputForm" >
+				<label class="mx-auto pb-3">Expenditure Details</label>
+				<div class="input-group mb-3">
+				  <input 
+					  type="text" 
+					  class="form-control mr-0" 
+					  aria-label="amount in INR" 
+					  id="primarynumber" 
+					  placeholder="Enter amount here"
+					  value="" 
+				  >
+				  <div class="input-group-append">
+				    <span class="input-group-text">&#8377;</span>
+				  </div>
+				</div>
+
+				<div class="input-group ">
+					<div class="input-group-prepend">
+					   <span class="input-group-text">@</span>
+					</div>
+
+					<input 
+						type="text"
+						class="form-control ml-0" 
+						aria-label="item description"
+						placeholder="Describe item"
+						id="primaryDesc" 
+						value="" 
+					>
+					<div class="input-group-append">
+						 <button 
+						 	class="btn btn-outline-primary" 
+						 	type="button"
+						 	id="add" 
+						 >
+						Add
+						</button>
+					</div>
+
+				</div>
+			</form>
+		<!-- 	<div  
+				style="text-align: center;" 
+				id="putData"
+				>					
+			</div> -->
+			<div>
+				<ul class="list-group m-5" id="putData"></ul>
+			</div>
+
+		</div>
+	</div>
+
+	<script type="text/javascript">
+
+		const headingEl = document.querySelector("#output");
+
+		const primarytext = document.querySelector("#primarynumber");	
+		
+		const description = document.querySelector("#primaryDesc");
+
+		const showData = document.querySelector("#putData");
+
+		// Step 1: taking the button to the js script file
+		const element = document.querySelector("#add"); // document is our whole page which we are viewing and query selector is used to fetch the button which has id as add. we use # in Js for id's just like we use . in css for classes. element is a variable used to store the information of thetag related to mentioned id (in this case the button statement is stored under element). In JS ES6 there are only two datatypes for variables i.e. const and let.
+		// and now every change at element will lead to change in button. ufffffffff seems sexxxy <3
+
+		// listen to the button click
+		element.addEventListener("click", addition, false); //add event listener will add a functionality to our element i.e. button of click so whenever a click is encountered it will make a call to function increment 
+
+
+		let base = 0;
+
+		const allinfo = [];
+
+		function addition() {
+			const currentEl = {};
+			const temptext = primarytext.value;
+			const textDesc = description.value;
+			
+			currentEl.description = textDesc;			
+			currentEl.rupees = temptext;
+
+			const currenttime = new Date();
+			currentEl.thismoment = currenttime;
+
+			allinfo.push(currentEl);
+
+			document.expenseInputForm.reset();
+
+			const primarynum = parseInt(temptext, 10);
+			base = base + primarynum;
+
+			// const showResult = `the overall expense you spent is ${base}`
+
+			headingEl.textContent = base;
+
+			const allinfoHTML = allinfo.map(expense => createItemList(expense.description, expense.rupees, expense.thismoment));
+			
+			const joinedallinfoHTML = allinfoHTML.join("");
+			showData.innerHTML = joinedallinfoHTML;
+		}
+
+			function createItemList( description, rupees, thismoment) {
+				return `
+					 <li class="list-group-item d-flex justify-content-between" bg-light>
+							<div class="d-flex flex-column">
+								${description}
+								<small class"text-muted">${getDateString(thismoment)}</small>
+							</div>
+							<div>
+								<span class="px-5">
+									${rupees}
+
+								</span>
+								<button 
+                                    type="button" 
+                                    onclick="deleteItem(${thismoment.valueOf()})"
+                                    class="btn btn-outline-danger btn-sm"
+                                >
+									<i class="fas fa-trash-alt"></i>
+								</button>
+							</div>
+						</li>
+					`;
+			}	
+
+			function deleteItemFromTotal( Item ) {
+				base = base - Item.rupees;
+				headingEl.textContent = base;
+			}
+
+			function deleteItem(timeCreated ) {
+					
+				// For deleting item in original array
+
+					for (var i = 0; i < allinfo.length; i++) {
+						if (allinfo[i].thismoment.valueOf() == timeCreated ) {
+							deleteItemFromTotal(allinfo[i]);
+							for( var k=i; k < allinfo.length - 1; k++) {
+								allinfo[k] = allinfo[k+1];
+							}
+							allinfo.pop();
+						}
+					}
+
+
+				// FOR MAKING A NEW ARRAY WITH DELETED element
+
+					// const updatedListAfterDeletion = [];
+					// 	if (allinfo[i].thismoment.valueOf() !== timeCreated) {
+					// 		updatedListAfterDeletion.push(allinfo[i]);
+
+				 		// console.log('Item found', allinfo[i].description);
+					// 	}	
+					
+					 // FOR MAKING A NEW ARRAY WITH DELETED element with .filter
+
+					 // const updatedListAfterDeletion = allinfo.filter(expense => { expense.thismoment.valueOf() !== timeCreated});
+
+
+					renderList(allinfo);
+			}
+
+			function renderList(updatedListAfterDeletion ) {
+				
+				const allinfoHTML = updatedListAfterDeletion.map(expense => createItemList(expense.description, expense.rupees, expense.thismoment));
+			
+				const joinedallinfoHTML = allinfoHTML.join("");
+				showData.innerHTML = joinedallinfoHTML;
+
+			}
+
+			function getDateString(moment) {
+				var options = { year: 'numeric', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', seconds: '2-digit'};
+				return moment.toLocaleDateString('en-US', options);
+			}
+
+
+	</script>
+</body>
+</html>
