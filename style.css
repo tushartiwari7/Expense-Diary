@@ -1,0 +1,28 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.navbar {
+    width: 100vw;
+}
+.h5 {
+    display: flex;
+    flex-direction: row;
+}
+
+.credits {
+    background: #333;
+    color: #fffeee;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+}
+.credits a {
+    color: #999;
+    text-decoration: none;
+}
+.credits a:hover {
+    color: #fffeee;
+}
