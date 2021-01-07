@@ -27,14 +27,22 @@
 			</form>
 		</nav>
 		<div class="container">
-			<form class="jumbotron mt-4 pt-4 mx-auto" style="text-align: center;" name="expenseInputForm" >
+			<form 
+				action="#0"
+				class="jumbotron mt-4 pt-4 mx-auto formValidation" 
+				style="text-align: center;" 
+				name="expenseInputForm" 
+				>
+
 				<label class="mx-auto pb-3">Expenditure Details</label>
 				<div class="input-group mb-3">
 				  <input 
+					  required
 					  type="text" 
 					  class="form-control mr-0" 
 					  aria-label="amount in INR" 
 					  id="primarynumber" 
+					  name="primaryNumber"
 					  placeholder="Enter amount here"
 					  value="" 
 				  >

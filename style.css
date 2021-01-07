@@ -26,3 +26,16 @@ body {
 .credits a:hover {
     color: #fffeee;
 }
+
+.formValidation {
+    >input[] {
+        &:valid {
+            background: url(hero.svg);
+            background-size: 20px;
+            background-repeat: no-repeat;
+            background-position: 20px 20px;
+    
+    }
+}
+
+}

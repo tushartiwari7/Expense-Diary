@@ -9,7 +9,8 @@
 		const showData = document.querySelector("#putData");
 
 		// Step 1: taking the button to the js script file
-		const element = document.querySelector("#add"); // document is our whole page which we are viewing and query selector is used to fetch the button which has id as add. we use # in Js for id's just like we use . in css for classes. element is a variable used to store the information of thetag related to mentioned id (in this case the button statement is stored under element). In JS ES6 there are only two datatypes for variables i.e. const and let.
+		const element = document.querySelector("#add");
+		// document is our whole page which we are viewing and query selector is used to fetch the button which has id as add. we use # in Js for id's just like we use . in css for classes. element is a variable used to store the information of thetag related to mentioned id (in this case the button statement is stored under element). In JS ES6 there are only two datatypes for variables i.e. const and let.
 		// and now every change at element will lead to change in button. ufffffffff seems sexxxy <3
 
 		// listen to the button click
