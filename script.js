@@ -15,7 +15,9 @@
 
 		// listen to the button click
 		element.addEventListener("click", addition, false); //add event listener will add a functionality to our element i.e. button of click so whenever a click is encountered it will make a call to function increment 
-
+		if(localStorage.getItem('data')!== null) {
+			stepTwo();
+		}
 
 		let base = 0;
 
@@ -34,40 +36,45 @@
 
 			allinfo.push(currentEl);
 
-			document.expenseInputForm.reset();
+			localStorage.setItem('data',JSON.stringify(allinfo));
 
-			const primarynum = parseInt(temptext, 10);
+			document.expenseInputForm.reset();	// to clear the input after one successful submit iteration
+			
+			const primarynum = parseInt(currentEl.rupees, 10);
 			base = base + primarynum;
 
 			// const showResult = `the overall expense you spent is ${base}`
 
 			headingEl.textContent = base;
+			stepTwo();
+		}
 
-			const allinfoHTML = allinfo.map(expense => createItemList(expense.description, expense.rupees, expense.thismoment));
+		function stepTwo() {
 			
+			const array = JSON.parse(localStorage.getItem('data'));
+			console.log(array);
+
+			const allinfoHTML = array.map(expense => createItemList(expense.description, expense.rupees, expense.thismoment));
+			console.log(allinfoHTML);
 			const joinedallinfoHTML = allinfoHTML.join("");
+			console.log(joinedallinfoHTML);
 			showData.innerHTML = joinedallinfoHTML;
 		}
 
 			function createItemList( description, rupees, thismoment) {
+				console.log(thismoment);
 				return `
 					 <li class="list-group-item d-flex justify-content-between" bg-light>
 							<div class="d-flex flex-column">
 								${description}
-								<small class"text-muted">${getDateString(thismoment)}</small>
+								<small class"text-muted">${
+									thismoment.toLocaleDateString('en-US',{ year: 'numeric', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', seconds: '2-digit'})}				</small>
 							</div>
 							<div>
 								<span class="px-5">
 									${rupees}
 
 								</span>
-								<button 
-                                    type="button" 
-                                    onclick="deleteItem(${thismoment.valueOf()})"
-                                    class="btn btn-outline-danger btn-sm"
-                                >
-									<i class="fas fa-trash-alt"></i>
-								</button>
 							</div>
 						</li>
 					`;
@@ -95,16 +102,16 @@
 
 				// FOR MAKING A NEW ARRAY WITH DELETED element
 
-					// const updatedListAfterDeletion = [];
-					// 	if (allinfo[i].thismoment.valueOf() !== timeCreated) {
-					// 		updatedListAfterDeletion.push(allinfo[i]);
+				// 	const updatedListAfterDeletion = [];
+				// 		if (allinfo[i].thismoment.valueOf() !== timeCreated) {
+				// 			updatedListAfterDeletion.push(allinfo[i]);
 
-				 		// console.log('Item found', allinfo[i].description);
-					// 	}	
+				//  		console.log('Item found', allinfo[i].description);
+				// 		}	
 					
-					 // FOR MAKING A NEW ARRAY WITH DELETED element with .filter
+				// 	 FOR MAKING A NEW ARRAY WITH DELETED element with .filter
 
-					 // const updatedListAfterDeletion = allinfo.filter(expense => { expense.thismoment.valueOf() !== timeCreated});
+				// 	 const updatedListAfterDeletion = allinfo.filter(expense => { expense.thismoment.valueOf() !== timeCreated});
 
 
 					renderList(allinfo);
@@ -113,14 +120,12 @@
 			function renderList(updatedListAfterDeletion ) {
 				
 				const allinfoHTML = updatedListAfterDeletion.map(expense => createItemList(expense.description, expense.rupees, expense.thismoment));
-			
 				const joinedallinfoHTML = allinfoHTML.join("");
 				showData.innerHTML = joinedallinfoHTML;
-
 			}
 
-			function getDateString(moment) {
-				var options = { year: 'numeric', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', seconds: '2-digit'};
-				return moment.toLocaleDateString('en-US', options);
-			}
+			// function getDateString(moment) {
+			// 	var options = { year: 'numeric', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', seconds: '2-digit'};
+			// 	return moment.toLocaleDateString('en-US', options);
+			// }
 
