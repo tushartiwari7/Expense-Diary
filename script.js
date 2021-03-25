@@ -8,11 +8,12 @@
 	if(localStorage.getItem('data')!== null) {
 		processing();
 	}
-	if(localStorage.getItem('bill')!== null)
-		headingEl.textContent = localStorage.getItem('bill');
-	else
-		headingEl.textContent = 0;
-	let base = 0;
+		if(localStorage.getItem('bill')!== null){
+			headingEl.textContent = localStorage.getItem('bill');
+		}
+		else {
+			headingEl.textContent = 0;
+		}
 	let allinfo = [];
 	function addition() {
 		const currentEl = {};
@@ -42,7 +43,6 @@ function addToBill(price) {
 }
 
 function deleteFromBill( price ) {
-	base = base - price;
 	var billValue = JSON.parse(localStorage.getItem('bill'));
 	billValue = billValue - price;
 	localStorage.setItem('bill',JSON.stringify(billValue));
