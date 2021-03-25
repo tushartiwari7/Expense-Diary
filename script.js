@@ -10,6 +10,7 @@
 	if(localStorage.getItem('data')!== null) {
 		processing();
 	}
+	headingEl.textContent = 0;
 	let base = 0;
 	let allinfo = [];
 	function addition() {
@@ -24,30 +25,22 @@
 		if(localStorage.getItem('data')!== null) {
 			allinfo=JSON.parse(localStorage.getItem('data'));
 		}
-		console.log(allinfo);
 		allinfo.push(currentEl);
 		localStorage.setItem('data',JSON.stringify(allinfo));
 		document.expenseInputForm.reset();	// to clear the input form after one successful submit iteration		
 		const primarynum = parseInt(currentEl.rupees, 10);
 		base = base + primarynum;
-		// const showResult = `the overall expense you spent is ${base}`
 		headingEl.textContent = base;
 		processing();
 	}
-
 	function processing() {
-		const array = JSON.parse(localStorage.getItem('data'));
-		console.log(array);
-		// first convert string to Date then send to createItemList (3rd parameter)
-		const allinfoHTML = array.map(expense => createItemList(expense.description, expense.rupees,new Date(expense.thismoment)));
-		console.log(allinfoHTML);
+		let arr = JSON.parse(localStorage.getItem('data'));
+		const allinfoHTML = arr.map(expense => createItemList(expense.description, expense.rupees,new Date(expense.thismoment)));
 		const joinedallinfoHTML = allinfoHTML.join("");
-		console.log(joinedallinfoHTML);
 		showData.innerHTML = joinedallinfoHTML;
 	}
 
 		function createItemList( description, rupees, thismoment) {
-			console.log(thismoment);
 			return `
 					<li class="list-group-item d-flex justify-content-between" bg-light>
 						<div class="d-flex flex-column">
@@ -75,32 +68,26 @@
 			base = base - Item.rupees;
 			headingEl.textContent = base;
 		}
-		function deleteItem(timeCreated ) {
-				
-			// For deleting item in original array
-			for (var i = 0; i < allinfo.length; i++) {
-				if (allinfo[i].thismoment.valueOf() == timeCreated ) {
-					deleteItemFromTotal(allinfo[i]);
-					for( var k=i; k < allinfo.length - 1; k++) {
-						allinfo[k] = allinfo[k+1];
-					}
-					allinfo.pop();
-				}
-			}
-				renderList(allinfo);
-			// FOR MAKING A NEW ARRAY WITH DELETED element
-			// 	const updatedListAfterDeletion = [];
-			// 		if (allinfo[i].thismoment.valueOf() !== timeCreated) {
-			// 			updatedListAfterDeletion.push(allinfo[i]);
-			//  		console.log('Item found', allinfo[i].description);
-			// 		}					
 
-			// 	 FOR MAKING A NEW ARRAY WITH DELETED element with .filter
-			// 	 const updatedListAfterDeletion = allinfo.filter(expense => { expense.thismoment.valueOf() !== timeCreated});
+		function deleteItem(timeCreated ) {
+			let arr = JSON.parse(localStorage.getItem('data'));
+			arr.forEach(
+				element =>{
+					var fetchedTime = new Date(element.thismoment);
+					var fetchedTimeVal = fetchedTime.valueOf();
+					if(fetchedTimeVal === timeCreated) {
+						deleteItemFromTotal(element);
+						const indexOfDelEl = arr.indexOf(element);
+						arr.splice(indexOfDelEl,1);
+					}
+				}
+			);
+			localStorage.setItem('data',JSON.stringify(arr));
+			renderList(arr);
 		}
 
 		function renderList(updatedListAfterDeletion ) {
-			const allinfoHTML = updatedListAfterDeletion.map(expense => createItemList(expense.description, expense.rupees, expense.thismoment));
+			const allinfoHTML = updatedListAfterDeletion.map(expense => createItemList(expense.description, expense.rupees, new Date(expense.thismoment)));
 			const joinedallinfoHTML = allinfoHTML.join("");
 			showData.innerHTML = joinedallinfoHTML;
 		}
@@ -108,4 +95,3 @@
 			var options = { year: 'numeric', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit', seconds: '2-digit'};
 			return moment.toLocaleDateString('en-US', options);
 		}
-
