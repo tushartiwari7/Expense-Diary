@@ -87,7 +87,7 @@
 					allinfo.pop();
 				}
 			}
-
+				renderList(allinfo);
 			// FOR MAKING A NEW ARRAY WITH DELETED element
 			// 	const updatedListAfterDeletion = [];
 			// 		if (allinfo[i].thismoment.valueOf() !== timeCreated) {
@@ -97,7 +97,6 @@
 
 			// 	 FOR MAKING A NEW ARRAY WITH DELETED element with .filter
 			// 	 const updatedListAfterDeletion = allinfo.filter(expense => { expense.thismoment.valueOf() !== timeCreated});
-				renderList(allinfo);
 		}
 
 		function renderList(updatedListAfterDeletion ) {
