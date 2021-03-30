@@ -12,12 +12,8 @@
 	>
 	<!-- <style stype="text/css">	</style> -->
 	<link rel="stylesheet" href="style.css" type="text/css">
-	<script
-			defer
-			src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
-			integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP"
-			crossorigin="anonymous"
-		>
+	<script defer src="https://use.fontawesome.com/releases/v5.7.2/js/all.js"
+			integrity="sha384-0pzryjIRos8mFBWMzSSZApWtPl/5++eIfzYmTgBBmXYdhvxPc+XcFEk+zJwDgWbP" crossorigin="anonymous" >
 	</script>
 </head>
 <body>
@@ -29,55 +25,30 @@
 			</form>
 		</nav>
 		<div class="container">
-			<form 
-				action="#0"
-				class="jumbotron mt-4 pt-4 mx-auto formValidation" 
-				style="text-align: center;" 
-				name="expenseInputForm" 
-				>
-
+			<form action="#0" class="jumbotron mt-4 pt-4 mx-auto needs-Validation" style="text-align: center;" name="expenseInputForm" id="expense" >
 				<label class="mx-auto pb-3">Expenditure Details</label>
 				<div class="input-group mb-3">
-				  <input 
-					  required
-					  type="text" 
-					  class="form-control mr-0" 
-					  aria-label="amount in INR" 
-					  id="primarynumber" 
-					  name="primaryNumber"
-					  placeholder="Enter amount here"
-					  autocomplete="off"
-					  value="" 
-				  >
-				  <div class="input-group-append">
-				    <span class="input-group-text">&#8377;</span>
-				  </div>
+					<input required type="text" class="form-control mr-0" aria-label="amount in INR" 
+						id="primarynumber" pattern="[0-9]*" name="primaryNumber" placeholder="Enter amount here" autocomplete="off" value="" >
+					<div class="invalid-feedback">
+						please enter a number!
+					</div>
+					<div class="input-group-append">
+						<span class="input-group-text">&#8377;</span>
+					</div>
 				</div>
-<!--  -->
 				<div class="input-group ">
 					<div class="input-group-prepend">
 					   <span class="input-group-text">@</span>
 					</div>
-
-					<input 
-						type="text"
-						class="form-control ml-0" 
-						aria-label="item description"
-						placeholder="Describe item"
-						id="primaryDesc" 
-						autocomplete="off"
-						value="" 
-					>
-					<div class="input-group-append">
-						 <button 
-						 	class="btn btn-outline-primary" 
-						 	type="button"
-						 	id="add" 
-						 >
-						Add
-						</button>
+					<input required 
+						type="text" class="form-control ml-0" aria-label="item description" placeholder="Describe item" id="primaryDesc" autocomplete="off" value="" >
+					<div class="valid-feedback">
+						Looks Good!
 					</div>
-
+					<div class="input-group-append">
+						<button class="btn btn-outline-primary" type="submit" id="add" >Add </button>
+					</div>
 				</div>
 			</form>
 			<div>

@@ -3,8 +3,30 @@
 	const primarytext = document.querySelector("#primarynumber");	
 	const description = document.querySelector("#primaryDesc");
 	const showData = document.querySelector("#putData");
-	const element = document.querySelector("#add");
-	element.addEventListener("click", addition, false); 
+	// const element = document.querySelector("#add");
+	const expense = document.getElementById('expense');
+	// Example starter JavaScript for disabling form submissions if there are invalid fields
+	(function () {
+		'use strict'
+	
+		// Fetch all the forms we want to apply custom Bootstrap validation styles to
+		var forms = document.querySelectorAll('.needs-validation')
+	
+		// Loop over them and prevent submission
+		Array.prototype.slice.call(forms)
+		.forEach(function (form) {
+			form.addEventListener('submit', function (event) {
+			if (!form.checkValidity()) {
+				event.preventDefault()
+				event.stopPropagation()
+			}
+	
+			form.classList.add('was-validated')
+			}, false)
+		})
+	})()
+	// element.addEventListener("click", addition, false); 
+	expense.onsubmit = addition;
 	if(localStorage.getItem('data')!== null) {
 		processing();
 	}
@@ -20,7 +42,7 @@
 		const temptext = primarytext.value;
 		const textDesc = description.value;
 		
-		currentEl.description = textDesc;			
+		currentEl.description = textDesc;
 		currentEl.rupees = temptext;
 		const currenttime = new Date();
 		currentEl.thismoment = currenttime;
