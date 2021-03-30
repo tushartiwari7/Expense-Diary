@@ -1,4 +1,3 @@
-
 	const headingEl = document.querySelector("#output");
 	const primarytext = document.querySelector("#primarynumber");	
 	const description = document.querySelector("#primaryDesc");
@@ -79,24 +78,29 @@ function processing() {
 
 		function createItemList( description, rupees, thismoment) {
 			return `
-					<li class="list-group-item d-flex justify-content-between" bg-light>
+					<li class="list-group-item justify-content-around d-flex h10 " bg-light>
 						<div class="d-flex flex-column">
-							${description}
-							<small class"text-muted">${getDateString(thismoment)}
-								</small>
+							<strong>${description}</strong>
+							<small class"text-muted">${getDateString(thismoment)}</small>
 						</div>
-						<div>
-							<span class="px-5">
-								${rupees}
-							</span>
-							<button 
-                                    type="button" 
-                                    onclick="deleteItem(${thismoment.valueOf()})"
-                                    class="btn btn-outline-danger btn-sm">	
-									<i class="fas fa-trash-alt"></i>
-							</button>
-
+						<div class="input-group input-group-sm verticallyCenter  mb-3 w-25">
+							<div class="input-group-prepend">
+								<button type="button" class="btn btn-secondary">-</button>
+							</div>
+							<input type="number" class="form-control mw-25 counterInput" aria-label="Amount (to the nearest dollar)" />
+							<div class="input-group-append">
+  								<button type="button" class="btn btn-secondary">+</button>
+							</div>
 						</div>
+						<span class="px-5 verticallyCenter">
+						<strong>${rupees}</strong>
+						</span>
+						<button 
+							type="button" 
+							onclick="deleteItem(${thismoment.valueOf()})"
+							class="btn btn-outline-danger">	
+							<i class="fas fa-trash-alt"></i>
+						</button>
 					</li>
 				`;
 		}	

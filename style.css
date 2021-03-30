@@ -26,3 +26,20 @@ body {
 .credits a:hover {
     color: #fffeee;
 }
+.h10 {
+    max-height: 10%;
+}
+.counterInput {
+    max-width: 50px;
+}
+.verticallyCenter {
+    transform: translateY(25%);
+}
+li strong {
+    font-size: larger;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
