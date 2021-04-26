@@ -26,16 +26,20 @@ body {
 .credits a:hover {
     color: #fffeee;
 }
-
-.formValidation {
-    >input[] {
-        &:valid {
-            background: url(hero.svg);
-            background-size: 20px;
-            background-repeat: no-repeat;
-            background-position: 20px 20px;
-    
-    }
+.h10 {
+    max-height: 10%;
 }
-
+.counterInput {
+   width: 50px;
+}
+.verticallyCenter {
+    transform: translateY(25%);
+}
+li strong {
+    font-size: larger;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
