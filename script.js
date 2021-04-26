@@ -78,16 +78,17 @@ function processing() {
 
 		function createItemList( description, rupees, thismoment) {
 			return `
-					<li class="list-group-item justify-content-around d-flex h10 " bg-light>
+					<li class="list-group-item justify-content-between d-flex h10 " bg-light>
 						<div class="d-flex flex-column">
 							<strong>${description}</strong>
 							<small class"text-muted">${getDateString(thismoment)}</small>
 						</div>
+						<div class="row justify-content-evenly">
 						<div class="input-group input-group-sm verticallyCenter  mb-3 w-25">
 							<div class="input-group-prepend">
 								<button type="button" class="btn btn-secondary">-</button>
 							</div>
-							<input type="number" class="form-control mw-25 counterInput" aria-label="Amount (to the nearest dollar)" />
+							<input type="number" value="0" class="form-control mw-25 counterInput" aria-label="Amount (to the nearest dollar)" />
 							<div class="input-group-append">
   								<button type="button" class="btn btn-secondary">+</button>
 							</div>
@@ -101,6 +102,7 @@ function processing() {
 							class="btn btn-outline-danger">	
 							<i class="fas fa-trash-alt"></i>
 						</button>
+						</div>
 					</li>
 				`;
 		}	
